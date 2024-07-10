@@ -49,6 +49,7 @@ The script includes the following classifiers:
     Decision Tree Classifier
     Naive Bayes Classifier
     Random Forest Classifier
+    LSTM Classifier
 
 
 ## Outputs
