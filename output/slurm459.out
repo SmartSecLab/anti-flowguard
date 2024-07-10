@@ -1,0 +1,147 @@
+--------------------------------------------------
+Config: {'data': 'data/combined_data.csv', 'debug': True, 'split': {'frac': 30, 'test_size': 0.048, 'train_data_size': 30000000, 'test_data_size': 100000}}
+--------------------------------------------------
+Loading existing data/combined_data.csv
+--------------------------------------------------
+Training ID3 Classifier ...
+Accuracy: 0.9411764705882353
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+   DrDoS_LDAP       0.00      0.00      0.00         0
+  DrDoS_MSSQL       1.00      1.00      1.00         3
+    DrDoS_NTP       1.00      1.00      1.00         2
+DrDoS_NetBIOS       1.00      1.00      1.00         3
+   DrDoS_SNMP       1.00      0.67      0.80         3
+   DrDoS_SSDP       1.00      1.00      1.00         2
+    DrDoS_UDP       1.00      1.00      1.00         1
+        MSSQL       1.00      1.00      1.00         5
+      NetBIOS       1.00      1.00      1.00         1
+          Syn       1.00      1.00      1.00         3
+         TFTP       1.00      1.00      1.00         7
+          UDP       1.00      1.00      1.00         3
+
+     accuracy                           0.94        34
+    macro avg       0.85      0.82      0.83        34
+ weighted avg       0.97      0.94      0.95        34
+
+-----------------------------------
+
+Training Naive Bayes Classifier ...
+Accuracy: 0.5294117647058824
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+  DrDoS_MSSQL       1.00      0.33      0.50         3
+    DrDoS_NTP       0.33      1.00      0.50         2
+DrDoS_NetBIOS       0.67      0.67      0.67         3
+   DrDoS_SNMP       0.75      1.00      0.86         3
+   DrDoS_SSDP       0.00      0.00      0.00         2
+    DrDoS_UDP       0.00      0.00      0.00         1
+        MSSQL       0.33      0.80      0.47         5
+      NetBIOS       0.00      0.00      0.00         1
+          Syn       0.00      0.00      0.00         3
+         TFTP       1.00      0.57      0.73         7
+          UDP       0.50      0.67      0.57         3
+
+     accuracy                           0.53        34
+    macro avg       0.38      0.42      0.36        34
+ weighted avg       0.53      0.53      0.48        34
+
+-----------------------------------
+
+Training Random Forest Classifier ...
+Accuracy: 0.9705882352941176
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+  DrDoS_MSSQL       1.00      1.00      1.00         3
+    DrDoS_NTP       1.00      1.00      1.00         2
+DrDoS_NetBIOS       1.00      1.00      1.00         3
+   DrDoS_SNMP       0.75      1.00      0.86         3
+   DrDoS_SSDP       1.00      1.00      1.00         2
+    DrDoS_UDP       1.00      1.00      1.00         1
+        MSSQL       1.00      1.00      1.00         5
+      NetBIOS       1.00      1.00      1.00         1
+          Syn       1.00      1.00      1.00         3
+         TFTP       1.00      1.00      1.00         7
+          UDP       1.00      1.00      1.00         3
+
+     accuracy                           0.97        34
+    macro avg       0.90      0.92      0.90        34
+ weighted avg       0.95      0.97      0.96        34
+
+-----------------------------------
+
+--------------------------------------------------
+Training ID3 Classifier ...
+Accuracy: 0.8529411764705882
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+   DrDoS_LDAP       0.00      0.00      0.00         0
+  DrDoS_MSSQL       1.00      1.00      1.00         3
+    DrDoS_NTP       1.00      1.00      1.00         2
+DrDoS_NetBIOS       1.00      0.67      0.80         3
+   DrDoS_SNMP       0.50      0.33      0.40         3
+   DrDoS_SSDP       1.00      0.50      0.67         2
+    DrDoS_UDP       1.00      1.00      1.00         1
+        MSSQL       1.00      1.00      1.00         5
+      NetBIOS       1.00      1.00      1.00         1
+          Syn       1.00      1.00      1.00         3
+         TFTP       0.88      1.00      0.93         7
+          UDP       1.00      1.00      1.00         3
+
+     accuracy                           0.85        34
+    macro avg       0.80      0.73      0.75        34
+ weighted avg       0.90      0.85      0.87        34
+
+-----------------------------------
+
+Training Naive Bayes Classifier ...
+Accuracy: 0.5294117647058824
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+  DrDoS_MSSQL       1.00      0.33      0.50         3
+    DrDoS_NTP       0.33      1.00      0.50         2
+DrDoS_NetBIOS       0.67      0.67      0.67         3
+   DrDoS_SNMP       0.75      1.00      0.86         3
+   DrDoS_SSDP       0.00      0.00      0.00         2
+    DrDoS_UDP       0.00      0.00      0.00         1
+        MSSQL       0.33      0.80      0.47         5
+      NetBIOS       0.00      0.00      0.00         1
+          Syn       0.00      0.00      0.00         3
+         TFTP       1.00      0.57      0.73         7
+          UDP       0.50      0.67      0.57         3
+
+     accuracy                           0.53        34
+    macro avg       0.38      0.42      0.36        34
+ weighted avg       0.53      0.53      0.48        34
+
+-----------------------------------
+
+Training Random Forest Classifier ...
+Accuracy: 0.9705882352941176
+               precision    recall  f1-score   support
+
+    DrDoS_DNS       0.00      0.00      0.00         1
+  DrDoS_MSSQL       1.00      1.00      1.00         3
+    DrDoS_NTP       1.00      1.00      1.00         2
+DrDoS_NetBIOS       1.00      1.00      1.00         3
+   DrDoS_SNMP       0.75      1.00      0.86         3
+   DrDoS_SSDP       1.00      1.00      1.00         2
+    DrDoS_UDP       1.00      1.00      1.00         1
+        MSSQL       1.00      1.00      1.00         5
+      NetBIOS       1.00      1.00      1.00         1
+          Syn       1.00      1.00      1.00         3
+         TFTP       1.00      1.00      1.00         7
+          UDP       1.00      1.00      1.00         3
+
+     accuracy                           0.97        34
+    macro avg       0.90      0.92      0.90        34
+ weighted avg       0.95      0.97      0.96        34
+
+-----------------------------------
+
+--------------------------------------------------
