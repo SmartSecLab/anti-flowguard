@@ -17,7 +17,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.impute import SimpleImputer
 from joblib import dump
 
-from loader import load_data, prepro_data
+from loader import load_data, prepro_data, split_X_y
 
 
 def load_config():
@@ -106,13 +106,27 @@ def plot_feature_importances(X, y):
     return sorted_feature_names
 
 
-# Load the data
-data_csv = config['data']
+def load_processed_data():
+    """ Load the preprocessed data """
+    data_csv = config['data']
+    # check if config['processed_data'] exists
+    if os.path.exists(config['processed_data']):
+        data_csv = config['processed_data']
+        print(f"Loading existing processed data: {data_csv}...")
+        df = pd.read_csv(data_csv)
+    else:
+        print(f"Preprocessing data from {config['data']}...")
+        df = load_data(data_csv)
+        df = prepro_data(config, df)
+    return df
+
+
 
 # Load the data
-df = load_data(data_csv)
-X, y = prepro_data(config, df)
+df = load_processed_data()
 
+# Split into X and y
+X, y = split_X_y(config, df)
 
 # Train and evaluate models
 train_evaluate_models(X, y)

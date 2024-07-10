@@ -1,6 +1,7 @@
 data: data/combined_data.csv
+processed_data: data/processed_data.csv
 debug: True
 split:
   test_size: 0.048
-  train_data_size: 30000000
+  train_data_size:  20000 # 30000000
   test_data_size: 100000

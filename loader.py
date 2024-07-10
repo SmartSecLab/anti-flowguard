@@ -87,6 +87,7 @@ def prepro_data(config, df):
     df = df.sample(n = train_data_size + test_data_size, random_state=42).reset_index(drop=True)
     # df = df.sample(frac=0.00001, random_state=42).reset_index(drop=True)
 
+
     # Remove 'Flow ID' which is unique for each row
     # df = df.drop(['Flow ID'], axis=1)
     df['Flow ID'] = df['Flow ID'].apply(convert_to_float)
@@ -100,8 +101,13 @@ def prepro_data(config, df):
     df['Source IP'] = label_encoder.fit_transform(df['Source IP'])
     df['Destination IP'] = label_encoder.fit_transform(df['Destination IP'])
 
+    # Save the intermediate data
+    df.to_csv(config['processed_data'], index=False)
+    print(f"Saved preprocessed data to {config['processed_data']}")
+    return df
 
-    # Split the data into features and target
+def split_X_y(config, df):
+    """ Split the data into train and test sets """
     X = df.drop(columns=['Label'])
     X = X.astype(float) 
     y = df['Label']
