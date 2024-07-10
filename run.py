@@ -58,6 +58,7 @@ def train_evaluate_models(X, y):
         "Naive Bayes Classifier": GaussianNB(),
         "Random Forest Classifier": RandomForestClassifier(),
         # "Linear Regression": LinearRegression(),
+        # "Logistic Regression": "LogisticRegression()
     }
 
     for name, classifier in classifiers.items():
@@ -102,7 +103,7 @@ def plot_feature_importances(X, y):
 
     # save the figure 
     Path("figure").mkdir(parents=True, exist_ok=True)
-    plt.savefig('figure/' + config['class_type'] + '-feature_importances.png')
+    plt.savefig('figure/feature_importances.png')
 
     return sorted_feature_names
 
@@ -129,3 +130,6 @@ if __name__ == "__main__":
     # Train and evaluate only with the importent features
     print('Training and evaluating with important features...')
     train_evaluate_models(X, y)
+
+    # use LSTM model
+    apply_lstm(X, y, config['class_type'] + '-important')
