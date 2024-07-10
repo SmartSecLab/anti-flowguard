@@ -108,6 +108,10 @@ def prepro_data(config, df):
 
 def split_X_y(config, df):
     """ Split the data into train and test sets """
+    # Encode labels as binary (benign or not)
+    if config['class_type'] == 'binary':
+        df['Label'] = df['Label'].apply(lambda x: 0 if x == 'BENIGN' else 1)
+
     X = df.drop(columns=['Label'])
     X = X.astype(float) 
     y = df['Label']

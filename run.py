@@ -49,7 +49,7 @@ def train_evaluate_models(X, y):
     """Train and evaluate classifiers"""
     # Split the data into training and testing sets
     # test_size = config['split']['test_size']
-    test_size = config['split']['train_data_size'] / config['split']['train_data_size']
+    test_size = config['split']['test_data_size'] / config['split']['train_data_size']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
     classifiers = {
@@ -128,6 +128,7 @@ df = load_processed_data()
 # Split into X and y
 X, y = split_X_y(config, df)
 
+print('Training and evaluating with all features...')
 # Train and evaluate models
 train_evaluate_models(X, y)
 
@@ -137,4 +138,5 @@ sorted_feature_names = plot_feature_importances(X, y)
 
 
 # Train and evaluate only with the importent features
+print('Training and evaluating with important features...')
 train_evaluate_models(X, y)
