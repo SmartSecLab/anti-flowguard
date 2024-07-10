@@ -120,7 +120,7 @@ if __name__ == "__main__":
     train_evaluate_models(X, y)
 
     # use LSTM model
-    apply_lstm(X, y, config['class_type'])
+    apply_lstm(X, y, config)
 
 
     # Plot feature importances
@@ -128,8 +128,10 @@ if __name__ == "__main__":
 
 
     # Train and evaluate only with the importent features
+    print('='*50)
     print('Training and evaluating with important features...')
     train_evaluate_models(X, y)
 
     # use LSTM model
-    apply_lstm(X, y, config['class_type'] + '-important')
+    config['class_type']  = config['class_type'] + '-important'
+    apply_lstm(X, y, config)

@@ -80,14 +80,6 @@ def convert_to_float(data):
 
 def prepro_data(config, df):
     """ Preprocess the data """
-    # parameters based on FlowGuard paper
-    train_data_size = config['split']['train_data_size']
-    test_data_size = config['split']['test_data_size']
-
-    df = df.sample(n = train_data_size + test_data_size, random_state=42).reset_index(drop=True)
-    # df = df.sample(frac=0.00001, random_state=42).reset_index(drop=True)
-
-
     # Remove 'Flow ID' which is unique for each row
     # df = df.drop(['Flow ID'], axis=1)
     df['Flow ID'] = df['Flow ID'].apply(convert_to_float)
@@ -118,6 +110,12 @@ def load_processed_data(config):
         print(f"Preprocessing data from {config['data']}...")
         df = load_data(data_csv)
         df = prepro_data(config, df)
+        # parameters based on FlowGuard paper
+    train_data_size = config['split']['train_data_size']
+    test_data_size = config['split']['test_data_size']
+
+    df = df.sample(n = train_data_size + test_data_size, random_state=42).reset_index(drop=True)
+    # df = df.sample(frac=0.00001, random_state=42).reset_index(drop=True)
     return df
 
 
