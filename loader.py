@@ -106,6 +106,21 @@ def prepro_data(config, df):
     print(f"Saved preprocessed data to {config['processed_data']}")
     return df
 
+def load_processed_data(config):
+    """ Load the preprocessed data """
+    data_csv = config['data']
+    # check if config['processed_data'] exists
+    if os.path.exists(config['processed_data']):
+        data_csv = config['processed_data']
+        print(f"Loading existing processed data: {data_csv}...")
+        df = pd.read_csv(data_csv)
+    else:
+        print(f"Preprocessing data from {config['data']}...")
+        df = load_data(data_csv)
+        df = prepro_data(config, df)
+    return df
+
+
 def split_X_y(config, df):
     """ Split the data into train and test sets """
     # Encode labels as binary (benign or not)

@@ -17,7 +17,8 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.impute import SimpleImputer
 from joblib import dump
 
-from loader import load_data, prepro_data, split_X_y
+from loader import load_data, prepro_data, split_X_y, load_processed_data
+from lstm import apply_lstm
 
 
 def load_config():
@@ -101,42 +102,30 @@ def plot_feature_importances(X, y):
 
     # save the figure 
     Path("figure").mkdir(parents=True, exist_ok=True)
-    plt.savefig('figure/feature_importances.png')
+    plt.savefig('figure/' + config['class_type'] + '-feature_importances.png')
 
     return sorted_feature_names
 
 
-def load_processed_data():
-    """ Load the preprocessed data """
-    data_csv = config['data']
-    # check if config['processed_data'] exists
-    if os.path.exists(config['processed_data']):
-        data_csv = config['processed_data']
-        print(f"Loading existing processed data: {data_csv}...")
-        df = pd.read_csv(data_csv)
-    else:
-        print(f"Preprocessing data from {config['data']}...")
-        df = load_data(data_csv)
-        df = prepro_data(config, df)
-    return df
+if __name__ == "__main__":
+    # Load the data
+    df = load_processed_data(config)
+
+    # Split into X and y
+    X, y = split_X_y(config, df)
+
+    print('Training and evaluating with all features...')
+    # Train and evaluate models
+    train_evaluate_models(X, y)
+
+    # use LSTM model
+    apply_lstm(X, y, config['class_type'])
 
 
-
-# Load the data
-df = load_processed_data()
-
-# Split into X and y
-X, y = split_X_y(config, df)
-
-print('Training and evaluating with all features...')
-# Train and evaluate models
-train_evaluate_models(X, y)
+    # Plot feature importances
+    sorted_feature_names = plot_feature_importances(X, y)
 
 
-# Plot feature importances
-sorted_feature_names = plot_feature_importances(X, y)
-
-
-# Train and evaluate only with the importent features
-print('Training and evaluating with important features...')
-train_evaluate_models(X, y)
+    # Train and evaluate only with the importent features
+    print('Training and evaluating with important features...')
+    train_evaluate_models(X, y)
