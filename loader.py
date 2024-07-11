@@ -132,12 +132,12 @@ def ip_to_number(ip):
 def convert_to_float(data):
     parts = data.split('-')
     source_ip = ip_to_number(parts[0])
-    destination_ip = ip_to_number(parts[1])
+    dest_ip = ip_to_number(parts[1])
     source_port = parts[2]
-    destination_port = parts[3]
+    dest_port = parts[3]
     protocol = parts[4]
-    combined = "{source_ip}.{destination_ip}{source_port}{destination_port}{protocol}"
-    return float(combined)
+    c = f"{source_ip}.{dest_ip}{source_port}{dest_port}{protocol}"
+    return float(c)
 
 
 def prepro_data(config, df):
