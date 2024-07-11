@@ -14,9 +14,9 @@ all: help
 help:
 	@echo "The Makefile shortens some frequent commands"
 	@echo "Such as:"
-	@echo "make deploy     # increamental deployment of the current project to eX3"
-	@echo "make plots      # fetch plots from ex3 to local"
-	@echo "make venv       # create a venv (only works on eX3)"
+	@echo "make deploy     # increamental deployment of the current project to remote"
+	@echo "make plots      # fetch plots from remote to local"
+	@echo "make venv       # create a venv (only works on remote)"
 
 deploy:
 	rsync -avzhHP -e 'ssh' $(addprefix --include , $(patsubst %,'%',$(includes))) $(addprefix --exclude , $(patsubst %,'%',$(excludes))) . ${local}:${remoteProj}
@@ -27,7 +27,7 @@ data:
 deploy-auto:
 	@case `curl ifconfig.me` in \
     158.36.4.* ) case `hostname -f` in \
-                 *.cm.cluster) echo "looks like we're on eX3, this command is meant to run from your local machine..." ;; \
+                 *.cm.cluster) echo "looks like we're on remote, this command is meant to run from your local machine..." ;; \
                  *) rsync -avzhHP -e 'ssh' $(addprefix --exclude , $(patsubst %,'%',$(excludes))) . ${local}:${remoteProj} ;; \
                  esac ;; \
 	*) rsync -avzhHP -e 'ssh -p 60441' $(addprefix --exclude , $(patsubst %,'%',$(excludes))) . ${local}:${remoteProj} ;; \
@@ -39,7 +39,7 @@ local:
 plots:
 	@case `curl ifconfig.me` in \
     158.36.4.* ) case `hostname -f` in \
-                 *.cm.cluster) echo "looks like we're on eX3, this command is meant to run from your local machine..." ;; \
+                 *.cm.cluster) echo "looks like we're on remote, this command is meant to run from your local machine..." ;; \
                  *) rsync -avzhHP -e 'ssh' ${local}:${remoteProj}/result --exclude "**/tb" --include "*/" --include "*.jpg" --exclude "*" . && find results -empty -type d -delete ;; \
                  esac ;; \
 	*) rsync -avzhHP -e 'ssh -p 60441' ${local}:${remoteProj}/result --exclude "**/tb" --include "*/" --include "*.jpg" --exclude "*" . && find results -empty -type d -delete ;; \
@@ -48,7 +48,7 @@ plots:
 getmodel:
 	@case `curl ifconfig.me` in \
     158.36.4.* ) case `hostname -f` in \
-                 *.cm.cluster) echo "looks like we're on eX3, this command is meant to run from your local machine..." ;; \
+                 *.cm.cluster) echo "looks like we're on remote, this command is meant to run from your local machine..." ;; \
                  *) rsync -avzhHP -e 'ssh' ${local}:${remoteProj}/result result-complete/ ;; \
                  esac ;; \
 	*) rsync -avzhHP -e 'ssh -p 60441' ${local}:${remoteProj}/result result-complete/ ;; \
@@ -61,5 +61,5 @@ venv:
 	                  source venv/bin/activate; \
 	                  pip install -r requirements.txt; \
 	               ) ;; \
-	*) 	echo "looks like we're not on eX3, this command is not meant to run from your local machine..." ;; \
+	*) 	echo "looks like we're not on remote, this command is not meant to run from your local machine..." ;; \
 	esac
