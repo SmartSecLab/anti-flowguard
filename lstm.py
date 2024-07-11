@@ -112,7 +112,7 @@ def train_LSTM(X, y):
     return model, history, cm
 
 
-def apply_lstm(X, y):
+def apply_lstm(X, y, config):
     """ Apply LSTM model on the given data and return the trained model, history and figure of metrics """
     # Train the LSTM model
     model, history, cm = train_LSTM(X, y)
@@ -121,13 +121,13 @@ def apply_lstm(X, y):
     fig = plot_metrics(history, cm)
 
     # save the plt figure
-    fig.savefig('figure/lstm_model_metrics.png')
+    fig.savefig('figure/' + config['class_type'] + '-lstm_metrics.png')
 
     # Save the model
-    model.save('models/lstm_model.h5')
+    model.save('models/' + config['class_type'] + '-lstm_model.h5')
 
     # Save the history to a text file
-    with open('models/LSTM-history.txt', 'w') as f:
+    with open('models/' + config['class_type'] + '-LSTM-history.txt', 'w') as f:
         f.write(str(history.history))
 
 

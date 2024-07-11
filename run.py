@@ -93,13 +93,13 @@ def plot_feature_importances(X, y):
     indices = np.argsort(importances)[::-1]
 
     # Rearrange feature names so they match the sorted feature importances
-    sorted_feature_names = [feature_names[i] for i in indices]
+    imp_features = [feature_names[i] for i in indices]
 
     # Plot feature importances
     plt.figure(figsize=(10, 6))
     plt.title("Feature Importances")
     plt.bar(range(X.shape[1]), importances[indices], align="center")
-    plt.xticks(range(X.shape[1]), sorted_feature_names, rotation=90)
+    plt.xticks(range(X.shape[1]), imp_features, rotation=90)
     plt.xlim([-1, X.shape[1]])
     plt.tight_layout()
     plt.show()
@@ -108,7 +108,7 @@ def plot_feature_importances(X, y):
     Path("figure").mkdir(parents=True, exist_ok=True)
     plt.savefig('figure/feature_importances.png')
 
-    return sorted_feature_names
+    return imp_features
 
 
 if __name__ == "__main__":
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     apply_lstm(X, y, config)
 
     # Plot feature importances
-    sorted_feature_names = plot_feature_importances(X, y)
+    imp_features = plot_feature_importances(X, y)
 
     # Train and evaluate only with the importent features
     print('='*50)
