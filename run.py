@@ -1,6 +1,6 @@
 import glob
 import os
-import yaml 
+import yaml
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -33,10 +33,11 @@ print('-'*50)
 print('Config:', config)
 print('-'*50)
 
+
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
     # y_pred_class = classify(y_pred)
-    
+
     accuracy = accuracy_score(y_test, y_pred)
     print("Accuracy:", accuracy)
     print(classification_report(y_test, y_pred, zero_division=0))
@@ -50,9 +51,11 @@ def train_evaluate_models(X, y):
     """Train and evaluate classifiers"""
     # Split the data into training and testing sets
     # test_size = config['split']['test_size']
-    test_size = config['split']['test_data_size'] / config['split']['train_data_size']
+    test_size = config['split']['test_data_size'] / \
+        config['split']['train_data_size']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=42)
     classifiers = {
         "ID3 Classifier": DecisionTreeClassifier(),
         "Naive Bayes Classifier": GaussianNB(),
@@ -66,11 +69,12 @@ def train_evaluate_models(X, y):
         classifier.fit(X_train, y_train)
         # Evaluate Linear Regression model for classification
         evaluate_model(classifier, X_test, y_test)
-        
+
         # Save the model
         # dump(classifier, f'{name}_combined_model.joblib')
         # print("Model saved.")
     print('-'*50)
+
 
 def plot_feature_importances(X, y):
     # Create a random forest classifier
@@ -91,7 +95,6 @@ def plot_feature_importances(X, y):
     # Rearrange feature names so they match the sorted feature importances
     sorted_feature_names = [feature_names[i] for i in indices]
 
-
     # Plot feature importances
     plt.figure(figsize=(10, 6))
     plt.title("Feature Importances")
@@ -101,7 +104,7 @@ def plot_feature_importances(X, y):
     plt.tight_layout()
     plt.show()
 
-    # save the figure 
+    # save the figure
     Path("figure").mkdir(parents=True, exist_ok=True)
     plt.savefig('figure/feature_importances.png')
 
@@ -122,10 +125,8 @@ if __name__ == "__main__":
     # use LSTM model
     apply_lstm(X, y, config)
 
-
     # Plot feature importances
     sorted_feature_names = plot_feature_importances(X, y)
-
 
     # Train and evaluate only with the importent features
     print('='*50)
@@ -133,5 +134,5 @@ if __name__ == "__main__":
     train_evaluate_models(X, y)
 
     # use LSTM model
-    config['class_type']  = config['class_type'] + '-important'
+    config['class_type'] = config['class_type'] + '-important'
     apply_lstm(X, y, config)
